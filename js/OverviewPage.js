@@ -25,7 +25,7 @@ class OverviewPage {
           }, "Valuation Assessment page"),
           " and supported by independent AI evaluations) - to take a survival-level job made no practical sense. Doing so would have guaranteed permanent debt with zero path to retirement, whereas a strategic runway focused on high-leverage software creation remained the only realistic path to long-term solvency and self-sufficiency."
         ]),
-        this.buildAnalogiesRow() // Embedded side-by-side within the narrative overview
+        this.buildAnalogiesRow(app)
       ]);
     }
 
@@ -66,6 +66,12 @@ class OverviewPage {
           color: var(--text-secondary) !important;
           line-height: 1.8 !important;
           margin: 0 !important;
+        }
+        .analogy-image-frame:hover .analogy-hover-overlay {
+          opacity: 1 !important;
+        }
+        .analogy-image-frame:hover img {
+          transform: scale(1.04) !important;
         }
       `, "overview-page-custom-styles");
     }
@@ -197,7 +203,6 @@ class OverviewPage {
         }, "Conceptual Analogies"),
         
         makeElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6" }, [
-          // Life Preserver Analogy Card
           makeElement("div", { className: "elder-analysis-card flex flex-col md:flex-row gap-4 justify-between" }, [
             makeElement("div", { className: "flex-1" }, [
               makeElement("span", { className: "elder-card-badge mb-2 block w-max" }, "⚓ The Life Preserver Analogy"),
@@ -205,11 +210,15 @@ class OverviewPage {
                 "\"I was drowning, and I was thrown a life preserver. That life preserver keeps me from going under immediately - for which I am grateful - but it does not take me anywhere. What I actually need is to be taken to that boat heading toward shore - my actual career and skills. Instead, I am expected to cling to this preserver indefinitely, guaranteeing eventual failure through debt, aging, or exhaustion.\""
               )
             ]),
-            makeElement("div", { className: "w-24 h-24 flex-shrink-0" }, [
+            makeElement("div", {
+              className: "w-24 h-24 flex-shrink-0",
+              style: { width: "96px", height: "96px", minWidth: "96px", minHeight: "96px", flexShrink: "0" }
+            }, [
               makeElement("img", {
                 src: "images/lifePreserver.png",
                 alt: "Life Preserver Analogy",
                 className: "w-full h-full object-cover rounded-lg border border-[var(--border-color)]",
+                style: { width: "96px", height: "96px", objectFit: "cover", borderRadius: "8px", border: "1px solid var(--border-color)", display: "block" },
                 onerror: (e) => {
                   e.target.style.display = "none";
                   const fb = e.target.parentNode.querySelector(".analogy-fb");
@@ -217,12 +226,12 @@ class OverviewPage {
                 }
               }),
               makeElement("div", {
-                className: "analogy-fb hidden w-full h-full items-center justify-center bg-slate-900/50 border border-dashed border-[var(--border-color)] rounded-lg text-2xl"
+                className: "analogy-fb hidden w-full h-full items-center justify-center bg-slate-900/50 border border-dashed border-[var(--border-color)] rounded-lg text-2xl",
+                style: { width: "100%", height: "100%", alignItems: "center", justifyContent: "center", backgroundColor: "rgba(15, 23, 42, 0.5)", border: "1px dashed var(--border-color)", borderRadius: "8px", fontSize: "24px" }
               }, "🛟")
             ])
           ]),
 
-          // Carrot Analogy Card
           makeElement("div", { className: "elder-analysis-card flex flex-col md:flex-row gap-4 justify-between" }, [
             makeElement("div", { className: "flex-1" }, [
               makeElement("span", { className: "elder-card-badge mb-2 block w-max" }, "🥕 The Carrot Analogy"),
@@ -230,11 +239,15 @@ class OverviewPage {
                 "\"A carrot is dangled in front of me but leading me into a desert while I protest that there is a fertile Valley in the other direction. Ultimately, I grab the carrot and run toward the fertile Valley rather than going into the desert where I would die.\""
               )
             ]),
-            makeElement("div", { className: "w-24 h-24 flex-shrink-0" }, [
+            makeElement("div", {
+              className: "w-24 h-24 flex-shrink-0",
+              style: { width: "96px", height: "96px", minWidth: "96px", minHeight: "96px", flexShrink: "0" }
+            }, [
               makeElement("img", {
                 src: "images/carrotAnalogy.png",
                 alt: "Carrot Analogy",
                 className: "w-full h-full object-cover rounded-lg border border-[var(--border-color)]",
+                style: { width: "96px", height: "96px", objectFit: "cover", borderRadius: "8px", border: "1px solid var(--border-color)", display: "block" },
                 onerror: (e) => {
                   e.target.style.display = "none";
                   const fb = e.target.parentNode.querySelector(".analogy-fb");
@@ -242,7 +255,8 @@ class OverviewPage {
                 }
               }),
               makeElement("div", {
-                className: "analogy-fb hidden w-full h-full items-center justify-center bg-slate-900/50 border border-dashed border-[var(--border-color)] rounded-lg text-2xl"
+                className: "analogy-fb hidden w-full h-full items-center justify-center bg-slate-900/50 border border-dashed border-[var(--border-color)] rounded-lg text-2xl",
+                style: { width: "100%", height: "100%", alignItems: "center", justifyContent: "center", backgroundColor: "rgba(15, 23, 42, 0.5)", border: "1px dashed var(--border-color)", borderRadius: "8px", fontSize: "24px" }
               }, "🥕")
             ])
           ])
@@ -250,15 +264,27 @@ class OverviewPage {
       ]);
     }
 
-  buildAnalogiesRow() {
-      return makeElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6 mt-6" }, [
-        // Life Preserver Analogy
-        makeElement("div", { className: "overview-concern-card flex flex-row gap-4 p-6 items-start" }, [
-          makeElement("div", { className: "w-24 h-24 flex-shrink-0 relative bg-slate-950/40 rounded-lg border border-[var(--border-color)] overflow-hidden flex items-center justify-center" }, [
+  buildAnalogiesRow(app) {
+      return makeElement("div", { className: "grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6" }, [
+        // Life Preserver Analogy Card
+        makeElement("div", { className: "overview-concern-card flex flex-col sm:flex-row gap-5 p-6 items-start" }, [
+          makeElement("div", { 
+            className: "analogy-image-frame w-full sm:w-60 flex-shrink-0 relative bg-slate-950/60 rounded-lg border border-[var(--border-color)] overflow-hidden cursor-pointer group",
+            style: { width: "100%", maxWidth: "260px", height: "145px", flexShrink: "0", position: "relative", borderRadius: "8px", overflow: "hidden", border: "1px solid var(--border-color)", cursor: "pointer", backgroundColor: "#05070a" },
+            onclick: () => {
+              if (app && typeof app.openExhibitModal === 'function') {
+                app.openExhibitModal(
+                  'images/lifePreserver.png', 
+                  'The Life Preserver Analogy', 
+                  '"I was drowning, and I was thrown a life preserver. That life preserver keeps me from going under immediately - for which I am grateful - but it does not take me anywhere. What I actually need is to be taken to that boat heading toward shore - my actual career and skills."'
+                );
+              }
+            }
+          }, [
             makeElement("img", {
               src: "images/lifePreserver.png",
-              alt: "Life Preserver",
-              className: "absolute inset-0 w-full h-full object-cover",
+              alt: "Life Preserver Analogy",
+              style: { width: "100%", height: "100%", objectFit: "contain", padding: "6px", display: "block", transition: "transform 0.3s ease" },
               onerror: (e) => {
                 e.target.style.display = "none";
                 const fallback = e.target.parentNode.querySelector(".analogy-icon-fallback");
@@ -266,8 +292,15 @@ class OverviewPage {
               }
             }),
             makeElement("div", {
+              className: "analogy-hover-overlay absolute inset-0 bg-black/50 opacity-0 transition-opacity duration-200 flex flex-col items-center justify-center text-xs text-white font-bold tracking-wider uppercase gap-1",
+              style: { position: "absolute", inset: "0", backgroundColor: "rgba(0,0,0,0.55)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", color: "#ffffff", fontSize: "11px", fontWeight: "bold", opacity: "0", transition: "opacity 0.2s ease" }
+            }, [
+              makeElement("span", { style: { fontSize: "18px" } }, "🔍"),
+              makeElement("span", {}, "Click to Enlarge")
+            ]),
+            makeElement("div", {
               className: "analogy-icon-fallback absolute inset-0 hidden items-center justify-center text-3xl",
-              style: { backgroundColor: 'rgba(15, 23, 42, 0.6)' }
+              style: { position: "absolute", inset: "0", display: "none", alignItems: "center", justifyContent: "center", fontSize: "28px", backgroundColor: 'rgba(15, 23, 42, 0.8)' }
             }, "⚓")
           ]),
           makeElement("div", { className: "flex-1 min-w-0" }, [
@@ -278,13 +311,25 @@ class OverviewPage {
           ])
         ]),
 
-        // Carrot Analogy
-        makeElement("div", { className: "overview-concern-card flex flex-row gap-4 p-6 items-start" }, [
-          makeElement("div", { className: "w-24 h-24 flex-shrink-0 relative bg-slate-950/40 rounded-lg border border-[var(--border-color)] overflow-hidden flex items-center justify-center" }, [
+        // Carrot Analogy Card
+        makeElement("div", { className: "overview-concern-card flex flex-col sm:flex-row gap-5 p-6 items-start" }, [
+          makeElement("div", { 
+            className: "analogy-image-frame w-full sm:w-60 flex-shrink-0 relative bg-slate-950/60 rounded-lg border border-[var(--border-color)] overflow-hidden cursor-pointer group",
+            style: { width: "100%", maxWidth: "260px", height: "145px", flexShrink: "0", position: "relative", borderRadius: "8px", overflow: "hidden", border: "1px solid var(--border-color)", cursor: "pointer", backgroundColor: "#05070a" },
+            onclick: () => {
+              if (app && typeof app.openExhibitModal === 'function') {
+                app.openExhibitModal(
+                  'images/carrotAnalogy.png', 
+                  'The Carrot Analogy', 
+                  '"A carrot is dangled in front of me but leading me into a desert while I protest that there is a fertile Valley in the other direction. Ultimately, I grab the carrot and run toward the fertile Valley rather than going into the desert where I would die."'
+                );
+              }
+            }
+          }, [
             makeElement("img", {
               src: "images/carrotAnalogy.png",
               alt: "The Carrot Analogy",
-              className: "absolute inset-0 w-full h-full object-cover",
+              style: { width: "100%", height: "100%", objectFit: "contain", padding: "6px", display: "block", transition: "transform 0.3s ease" },
               onerror: (e) => {
                 e.target.style.display = "none";
                 const fallback = e.target.parentNode.querySelector(".analogy-icon-fallback");
@@ -292,8 +337,15 @@ class OverviewPage {
               }
             }),
             makeElement("div", {
+              className: "analogy-hover-overlay absolute inset-0 bg-black/50 opacity-0 transition-opacity duration-200 flex flex-col items-center justify-center text-xs text-white font-bold tracking-wider uppercase gap-1",
+              style: { position: "absolute", inset: "0", backgroundColor: "rgba(0,0,0,0.55)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", color: "#ffffff", fontSize: "11px", fontWeight: "bold", opacity: "0", transition: "opacity 0.2s ease" }
+            }, [
+              makeElement("span", { style: { fontSize: "18px" } }, "🔍"),
+              makeElement("span", {}, "Click to Enlarge")
+            ]),
+            makeElement("div", {
               className: "analogy-icon-fallback absolute inset-0 hidden items-center justify-center text-3xl",
-              style: { backgroundColor: 'rgba(15, 23, 42, 0.6)' }
+              style: { position: "absolute", inset: "0", display: "none", alignItems: "center", justifyContent: "center", fontSize: "28px", backgroundColor: 'rgba(15, 23, 42, 0.8)' }
             }, "🥕")
           ]),
           makeElement("div", { className: "flex-1 min-w-0" }, [
