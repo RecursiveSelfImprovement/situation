@@ -1,0 +1,22 @@
+{
+  "main": [
+    "js/AccuDrawValuation.js"
+  ],
+  "local": [
+    "js/SnareDrumAnimation.js",
+    "js/AiPerspectivePage.js",
+    "js/CaretakerBiasPage.js",
+    "js/CurrentWorkPage.js",
+    "js/ElderAdvocacyPage.js",
+    "js/NotesPage.js",
+    "js/OverviewPage.js",
+    "js/ValuationPage.js",
+    "js/ValueEmberLogo.js"
+  ],
+  "library": [
+    "DomBasics.js",
+    "UITools.js",
+    "VideoPlayer.js"
+  ],
+  "thirdParty": []
+}
