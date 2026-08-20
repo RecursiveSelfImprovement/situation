@@ -2489,7 +2489,7 @@ class AccuDrawValuation {
               borderRadius: '8px',
               border: '1px solid #ef4444'
             }
-          }, `Image Fallback: ${title}\n(Place file in images/${imgSrc.split('/').pop()})`);
+          }, `Image Fallback: ${title}\n(Place file in /images/${imgSrc.split('/').pop()})`);
           contentContainer.appendChild(errorMsg);
         }
       });
@@ -3072,6 +3072,17 @@ class AccuDrawValuation {
         }
       });
 
+      const getImgUrl = (relPath) => {
+        if (!relPath) return '';
+        if (relPath.startsWith('http') || relPath.startsWith('data:')) return relPath;
+        let cleanRel = relPath.startsWith('/') ? relPath.substring(1) : relPath;
+        let basePath = window.location.pathname;
+        if (!basePath.endsWith('/')) {
+          basePath = basePath.substring(0, basePath.lastIndexOf('/') + 1);
+        }
+        return window.location.origin + basePath + cleanRel;
+      };
+
       masterContainer.appendChild(makeElement('h1', {
         style: {
           fontSize: '26px',
@@ -3120,7 +3131,7 @@ class AccuDrawValuation {
         makeElement('p', { style: { margin: '0 0 6px 0', fontSize: '13px', fontWeight: 'bold', color: '#0f172a', textTransform: 'uppercase' } }, '⚓ The Life Preserver Analogy'),
         makeElement('p', { style: { fontSize: '12px', fontFamily: 'monospace', fontWeight: 'bold', color: '#0369a1', margin: '4px 0' } }, '[Image: lifePreserver.png]'),
         makeElement('img', {
-          src: window.location.origin + 'images/lifePreserver.png',
+          src: getImgUrl('images/lifePreserver.png'),
           alt: 'Life Preserver Analogy',
           style: { maxWidth: '120px', height: 'auto', borderRadius: '6px', border: '1px solid #cbd5e1', margin: '4px 0 10px 0', display: 'block' }
         }),
@@ -3140,7 +3151,7 @@ class AccuDrawValuation {
         makeElement('p', { style: { margin: '0 0 6px 0', fontSize: '13px', fontWeight: 'bold', color: '#0f172a', textTransform: 'uppercase' } }, '🥕 The Carrot Analogy'),
         makeElement('p', { style: { fontSize: '12px', fontFamily: 'monospace', fontWeight: 'bold', color: '#0369a1', margin: '4px 0' } }, '[Image: carrotAnalogy.png]'),
         makeElement('img', {
-          src: window.location.origin + 'images/carrotAnalogy.png',
+          src: getImgUrl('images/carrotAnalogy.png'),
           alt: 'Carrot Analogy',
           style: { maxWidth: '120px', height: 'auto', borderRadius: '6px', border: '1px solid #cbd5e1', margin: '4px 0 10px 0', display: 'block' }
         }),

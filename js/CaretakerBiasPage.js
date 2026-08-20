@@ -380,9 +380,6 @@ class CaretakerBiasPage {
       ]);
     }
 
-  // Method 2: Completely separate styling engine containing only CSS declarations for downstream iteration
-    
-
   getLinkedInExhibitSpecs() {
       const e1Text = [
         "This yellow notepad graphic remains active on Kathleen Brown's professional LinkedIn profile, ",
